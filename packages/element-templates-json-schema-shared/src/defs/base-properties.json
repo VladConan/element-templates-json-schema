@@ -1,0 +1,149 @@
+{
+  "type": "array",
+  "description": "List of properties of the element template.",
+  "allOf": [
+    { "$ref": "examples.json#/properties" }
+  ],
+  "items": {
+    "type": "object",
+    "default": {},
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "type": {
+              "const": "Dropdown"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        },
+        "then": {
+          "required": [
+            "choices"
+          ]
+        }
+      }
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier of the property."
+      },
+      "value": {
+        "$id": "#/properties/property/value",
+        "type": [
+          "string",
+          "boolean"
+        ],
+        "description": "The value of a control field."
+      },
+      "description": {
+        "$id": "#/properties/property/description",
+        "type": "string",
+        "description": "The description of a control field."
+      },
+      "label": {
+        "$id": "#/properties/property/label",
+        "type": "string",
+        "description": "The label of a control field."
+      },
+      "type": {
+        "$id": "#/properties/property/type",
+        "type": "string",
+        "description": "The type of a control field."
+      },
+      "editable": {
+        "$id": "#/properties/property/editable",
+        "type": "boolean",
+        "description": "Indicates whether a control field is editable or not."
+      },
+      "choices": {
+        "$id": "#/properties/property/choices",
+        "type": "array",
+        "description": "The choices for dropdown fields.",
+        "default": [],
+        "items": {
+          "$id": "#/properties/property/choices/item",
+          "type": "object",
+          "default": {},
+          "properties": {
+            "name": {
+              "$id": "#/properties/property/choices/item/name",
+              "type": "string",
+              "description": "The name of a choice."
+            },
+            "value": {
+              "$id": "#/properties/property/choices/item/value",
+              "type": "string",
+              "description": "The value of a choice."
+            }
+          },
+          "required": [
+            "value",
+            "name"
+          ]
+        }
+      },
+      "constraints": {
+        "$id": "#/properties/property/constraints",
+        "type": "object",
+        "description": "The validation constraints of a control field.",
+        "allOf": [
+          { "$ref": "examples.json#/constraints" }
+        ],
+        "properties": {
+          "notEmpty": {
+            "$id": "#/properties/property/constraints/notEmpty",
+            "type": "boolean",
+            "description": "The control field must not be empty."
+          },
+          "minLength": {
+            "$id": "#/properties/property/constraints/minLength",
+            "type": "number",
+            "description": "The minimal length of a control field value."
+          },
+          "maxLength": {
+            "$id": "#/properties/property/constraints/maxLength",
+            "type": "number",
+            "description": "The maximal length for a control field value."
+          },
+          "pattern": {
+            "$id": "#/properties/property/constraints/pattern",
+            "description": "A regular expression pattern for a constraint.",
+            "oneOf": [
+              {
+                "type": "object",
+                "default": {},
+                "properties": {
+                  "value": {
+                    "$id": "#/properties/property/constraints/pattern/value",
+                    "type": "string",
+                    "description": "The regular expression of a pattern."
+                  },
+                  "message": {
+                    "$id": "#/properties/property/constraints/pattern/message",
+                    "type": "string",
+                    "description": "The validation message of a pattern."
+                  }
+                }
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "group": {
+        "$id": "#/properties/property/group",
+        "type": "string",
+        "description": "The custom group of a control field."
+      },
+      "condition": {
+        "$ref": "condition.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "required": [
+    "name",
+    "id",
+    "appliesTo",
+    "properties"
+  ],
+  "properties": {
+    "name": {
+      "$id": "#/name",
+      "type": "string",
+      "description": "The name of the element template."
+    },
+    "id": {
+      "$id": "#/id",
+      "type": "string",
+      "description": "The identifier of the element template."
+    },
+    "description": {
+      "$id": "#/description",
+      "type": "string",
+      "description": "The description of the element template."
+    },
+    "version": {
+      "$id": "#/version",
+      "type": "integer",
+      "description": "Optional version of the template. If you add a version to a template it will be considered unique based on its ID and version. Two templates can have the same ID if their version is different."
+    },
+    "isDefault": {
+      "$id": "#/isDefault",
+      "type": "boolean",
+      "description": "Indicates whether the element template is a default template."
+    },
+    "appliesTo": {
+      "$id": "#/appliesTo",
+      "type": "array",
+      "description": "List of BPMN types the template can be applied to.",
+      "default": [],
+      "items": {
+        "$id": "#/appliesTo/items",
+        "type": "string",
+        "pattern": "^[\\w\\d]+:[\\w\\d]+$",
+        "allOf": [
+          {
+            "$ref": "examples.json#/appliesTo"
+          }
+        ]
+      }
+    },
+    "elementType": {
+      "$id": "#/elementType",
+      "type": "object",
+      "description": "The BPMN type the element will be transformed into.",
+      "default": {},
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "$id": "#/elementType/value",
+          "type": "string",
+          "pattern": "^[\\w\\d]+:[\\w\\d]+$",
+          "allOf": [
+            {
+              "$ref": "examples.json#/elementType"
+            }
+          ]
+        }
+      }
+    },
+    "metadata": {
+      "$id": "#/metadata",
+      "type": "object",
+      "description": "Some custom properties for further configuration.",
+      "default": {}
+    },
+    "entriesVisible": {
+      "$id": "#/entriesVisible",
+      "type": "boolean",
+      "description": "Select whether non-template entries are visible in the properties panel."
+    },
+    "groups": {
+      "$ref": "groups.json"
+    },
+    "documentationRef": {
+      "$id": "#/documentationRef",
+      "type": "string",
+      "pattern": "^(https|http)://.*"
+    }
+  }
+}

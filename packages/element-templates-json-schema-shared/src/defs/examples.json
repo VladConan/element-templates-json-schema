@@ -1,0 +1,62 @@
+{
+  "appliesTo": {
+    "examples": [
+      "bpmn:Task",
+      "bpmn:ServiceTask",
+      "bpmn:SequenceFlow",
+      "bpmn:Process",
+      "bpmn:StartEvent",
+      "bpmn:Gateway"
+    ]
+  },
+  "properties": {
+    "examples": [ [
+      {
+        "label": "Name",
+        "type": "String",
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      }
+    ] ]
+  },
+  "groups": {
+    "examples": [ [
+      {
+        "id": "group-1",
+        "label": "My Group"
+      }
+    ] ]
+  },
+  "constraints": {
+    "examples": [
+      {
+        "notEmpty": true
+      }
+    ]
+  },
+  "elementType": {
+    "examples": [
+      "bpmn:ServiceTask",
+      "bpmn:UserTask",
+      "bpmn:StartEvent",
+      "bpmn:ExclusiveGateway",
+      "bpmn:ParallelGateway"
+    ]
+  },
+  "condition": {
+    "examples": [
+      {
+        "type": "simple",
+        "property": "httpMethod",
+        "equals": "GET"
+      },
+      {
+        "type": "simple",
+        "property": "httpMethod",
+        "oneOf": [ "POST", "PUT", "DELETE" ]
+      }
+    ]
+  }
+}

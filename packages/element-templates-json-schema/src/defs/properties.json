@@ -1,0 +1,404 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "array",
+  "description": "List of properties of the element template.",
+  "items": {
+    "type": "object",
+    "default": {},
+    "required": [
+      "binding"
+    ],
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "binding": {
+              "properties": {
+                "type": {
+                  "const": "property"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            }
+          },
+          "required": [
+            "binding"
+          ]
+        },
+        "then": {
+          "properties": {
+            "type": {
+              "enum": [
+                "String",
+                "Text",
+                "Hidden",
+                "Dropdown",
+                "Boolean"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "binding": {
+              "properties": {
+                "type": {
+                  "const": "camunda:executionListener"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            }
+          },
+          "required": [
+            "binding"
+          ]
+        },
+        "then": {
+          "properties": {
+            "type": {
+              "enum": [
+                "Hidden"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "binding": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "camunda:property",
+                    "camunda:outputParameter",
+                    "camunda:in",
+                    "camunda:in:businessKey",
+                    "camunda:out",
+                    "camunda:errorEventDefinition"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ]
+            }
+          },
+          "required": [
+            "binding"
+          ]
+        },
+        "then": {
+          "properties": {
+            "type": {
+              "enum": [
+                "String",
+                "Hidden",
+                "Dropdown"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "binding": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "camunda:inputParameter",
+                    "camunda:field"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ]
+            }
+          },
+          "required": [
+            "binding"
+          ]
+        },
+        "then": {
+          "properties": {
+            "type": {
+              "enum": [
+                "String",
+                "Text",
+                "Hidden",
+                "Dropdown"
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "properties": {
+      "binding": {
+        "$id": "#/properties/property/binding",
+        "type": "object",
+        "description": "Specifying how the property is mapped to BPMN or Camunda extension elements and attributes.",
+        "required": [
+          "type"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "property",
+                    "camunda:property",
+                    "camunda:inputParameter",
+                    "camunda:field"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "name"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "camunda:outputParameter"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "source"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "camunda:in"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "anyOf": [
+                {
+                  "required": [
+                    "variables"
+                  ]
+                },
+                {
+                  "required": [
+                    "target"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "camunda:out"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "oneOf": [
+                {
+                  "required": [
+                    "variables"
+                  ],
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "source"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "sourceExpression"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "source"
+                  ],
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "variables"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "sourceExpression"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "sourceExpression"
+                  ],
+                  "not": {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "variables"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "source"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "variables",
+                    "sourceExpression"
+                  ],
+                  "not": {
+                    "required": [
+                      "source"
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "variables",
+                    "source"
+                  ],
+                  "not": {
+                    "required": [
+                      "sourceExpression"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "camunda:errorEventDefinition"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "oneOf": [
+                {
+                  "required": [
+                    "errorRef"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "$ref": "examples.json#/binding"
+          }
+        ],
+        "properties": {
+          "type": {
+            "$id": "#/properties/property/binding/type",
+            "type": "string",
+            "enum": [
+              "property",
+              "camunda:property",
+              "camunda:inputParameter",
+              "camunda:outputParameter",
+              "camunda:in",
+              "camunda:out",
+              "camunda:in:businessKey",
+              "camunda:executionListener",
+              "camunda:field",
+              "camunda:errorEventDefinition"
+            ],
+            "description": "The type of a property binding."
+          },
+          "name": {
+            "$id": "#/properties/property/binding/name",
+            "type": "string",
+            "description": "The name of a property binding."
+          },
+          "event": {
+            "$id": "#/properties/property/binding/event",
+            "type": "string",
+            "description": "The event type of a property binding (camunda:executionListener)."
+          },
+          "scriptFormat": {
+            "$id": "#/properties/property/binding/scriptFormat",
+            "type": "string",
+            "description": "The script format of a property binding (camunda:outputParameter, camunda:inputParameter)."
+          },
+          "source": {
+            "$id": "#/properties/property/binding/source",
+            "type": "string",
+            "description": "The source value of a property binding (camunda:outputParameter, camunda:out)."
+          },
+          "target": {
+            "$id": "#/properties/property/binding/target",
+            "type": "string",
+            "description": "The target value of a property binding (camunda:in)."
+          },
+          "expression": {
+            "$id": "#/properties/property/binding/expression",
+            "type": "boolean",
+            "description": "Indicates whether the control field value is an expression (camunda:in, camunda:field)."
+          },
+          "variables": {
+            "$id": "#/properties/property/binding/variables",
+            "type": "string",
+            "enum": [
+              "all",
+              "local"
+            ],
+            "description": "The variable mapping of a property binding (camunda:in)."
+          },
+          "sourceExpression": {
+            "$id": "#/properties/property/binding/sourceExpression",
+            "type": "string",
+            "description": "The string containing the expression for the source attribute (camunda:out)."
+          }
+        }
+      }
+    }
+  }
+}

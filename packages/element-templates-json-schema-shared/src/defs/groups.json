@@ -1,0 +1,31 @@
+{
+  "$id": "#/groups",
+  "type": "array",
+  "description": "Custom fields can be ordered together via groups.",
+  "allOf": [
+    {
+      "$ref": "examples.json#/groups"
+    }
+  ],
+  "items": {
+    "$id": "#/groups/group",
+    "type": "object",
+    "default": {},
+    "required": [
+      "id",
+      "label"
+    ],
+    "properties": {
+      "id": {
+        "$id": "#/groups/group/id",
+        "type": "string",
+        "description": "The id of the custom group"
+      },
+      "label": {
+        "$id": "#/groups/group/label",
+        "type": "string",
+        "description": "The label of the custom group"
+      }
+    }
+  }
+}

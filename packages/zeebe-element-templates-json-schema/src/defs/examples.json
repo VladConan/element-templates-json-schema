@@ -1,0 +1,29 @@
+{
+  "binding": {
+    "examples": [
+      {
+        "type": "property",
+        "name": "name"
+      },
+      {
+        "type": "zeebe:input",
+        "name": "input"
+      },
+      {
+        "type": "zeebe:output",
+        "source": "output"
+      },
+      {
+        "type": "zeebe:property",
+        "name": "property"
+      },
+      {
+        "type": "zeebe:taskDefinition:type"
+      },
+      {
+        "type": "zeebe:taskHeader",
+        "key": "key"
+      }
+    ]
+  }
+}
